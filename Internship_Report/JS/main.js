@@ -85,6 +85,15 @@ function deleteBlog(event) {
     displayBlogs();
 }
 
+function savedata()
+{
+    localStorage.setItem("data",blog-container.innerHTML);
+}
+function showtask()
+{
+    listitem.innerHTML = localStorage.getItem("data");
+}
+showtask();
 
 
 

@@ -87,4 +87,11 @@ button{
     margin-bottom: 20px;
     padding: 20px;
     background: linear-gradient(rgba(255,255,255,0.2),rgba(255,255,255,0.3));
+    position: relative;
+
+  
+  }
+  .blog-post button{
+    width: 100px;
+    margin-right: 10px;
   }
