@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Blog</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>My Simple Blog</h1>
+      <form>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+
+        <label for="content">Content:</label>
+        <textarea id="content" name="content"></textarea>
+
+        <input type="button" value="Post" onclick="postBlog()">
+      </form>
+
+      <div id="blog-container">
+        
+      </div>
+    </div>
+    <style>
+        * {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="button"] {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background-color: #3e8e41;
+}
+
+.blog-post {
+  background-color: #f2f2f2;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+    </style>
+
+    <script>
+let blogData = [];
+
+function postBlog() {
+  const title = document.getElementById("title").value;
+  const content = document.getElementById("content").value;
+
+  if (title.length == 0 || content.length == 0) {
+    alert("Please enter a title and content.");
+  } else {
+    const blogPost = {
+      title: title,
+      content: content,
+    };
+
+    blogData.push(blogPost);
+    displayBlogs();
+  }
+}
+
+function displayBlogs() {
+  const blogContainer = document.getElementById("blog-container");
+  blogContainer.innerHTML = "";
+
+  for (let i = 0; i < blogData.length; i++) {
+    const title = blogData[i].title;
+    const content = blogData[i].content;
+
+    const blogPost = document.createElement("div");
+    blogPost.classList.add("blog-post");
+
+    const blogTitle = document.createElement("h2");
+    blogTitle.textContent = title;
+
+    const blogContent = document.createElement("p");
+    blogContent.textContent = content;
+
+    blogPost.appendChild(blogTitle);
+    blogPost.appendChild(blogContent);
+    blogContainer.appendChild(blogPost);
+  }
+} 
+    </script>
+  </body>
+</html>
