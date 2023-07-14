@@ -17,6 +17,7 @@ function postBlog(event) {
         displayBlogs();
         document.getElementById('title').value = '';
         document.getElementById('content').value = '';
+        savedata();
     }
 }
 
@@ -64,6 +65,7 @@ function displayBlogs() {
         blogPost.appendChild(deleteBtn);
         blogContainer.appendChild(blogPost);
     }
+    savedata();
 }
 
 function editBlog(event) {
@@ -85,15 +87,16 @@ function deleteBlog(event) {
     displayBlogs();
 }
 
-function savedata()
-{
-    localStorage.setItem("data",blog-container.innerHTML);
-}
-function showtask()
-{
-    listitem.innerHTML = localStorage.getItem("data");
-}
-showtask();
+// function savedata()
+// {
+//     localStorage.setItem("data",blogContainer.innerHTML);
+// }
+// function showtask()
+// {
+//     // blogContainer.innerHTML = localStorage.getItem("data");
+//     localStorage.getItem("data") = blogContainer.innerHTML;
+// }
+// showtask();
 
 
 
