@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stupied</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Stupied</h1>
+        <div class="in">
+            <input type="text" placeholder="Youre Stupied" id="Stupied">
+            <button id="btn">Button</button>
+        </div>
+        <ul>
+        <div class="answer" id="answer">
+        </div>
+    </ul>
+    </div>
+    </div>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(202, 206, 214);
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .container h1{
+            font-size: 35px;
+            color: rgb(19, 156, 99);
+            background: transparent;
+        }
+        #Stupied{
+            padding: 10px;
+            width: 400px;
+            margin-top: 10px;
+            outline: none;
+            border: none;
+            border-radius: 15px 0px 0px 15px;
+        }
+        #btn{
+            width: 80px;
+            padding: 10px;
+            border: none;
+            background-color: rgb(42, 165, 114);
+            color: #fff;
+            border-radius: 0px 15px 15px 0px;
+            cursor: pointer;
+        }
+        .answer{
+            margin-top: 10px;
+            font-size: 20px;
+            color: black;
+        }
+        ul{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #answer{
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            width: 400px;
+            gap: 30px;
+            background-color: rgb(158, 156, 156);
+        }
+        button{
+           display: inline-block; 
+           width: 100px;
+           padding: 10px;
+           border: none;
+           margin-left: 10px;
+           justify-content: flex-end;
+           cursor: pointer;
+        }
+        editButton{
+            background-color: rgb(8, 78, 124);
+            padding: 5px 15px;
+            cursor: pointer;
+            color: #fff;
+            margin-left: 20px;
+        }
+        deleteButton{
+            background-color: rgb(8, 78, 124);
+            padding: 5px 15px;
+            cursor: pointer;
+            color: #fff;
+            margin-left: 20px;
+        }
+    
+    </style>
+    <script>
+        let taskInput = document.getElementById("Stupied")
+        let btn = document.getElementById("btn")
+        let taskList = document.getElementById("answer")
+//         btn.addEventListener("click", ()=>{
+//             // answer.innerHTML = input.value;
+//             let li = document.createElement("li")
+//             li.innerHTML=input.value;
+//             answer.appendChild(li);
+        // Function to update task list on the webpage
+        function updateTaskList(tasks) {
+            taskList.innerHTML = ""; // Clear previous list
+
+            for (let i = 0; i < tasks.length; i++) {
+                let task = tasks[i];
+
+                let taskElement = document.createElement("div");
+
+                let taskText = document.createElement("span");
+                taskText.textContent = task;
+                taskElement.appendChild(taskText);
+
+                let editButton = document.createElement("editButton");
+                editButton.textContent = "Edit";
+                editButton.addEventListener("click", function () {
+                    // Code to edit the task in place
+                    let editInput = document.createElement("Input");
+                    editInput.type = "text";
+                    editInput.value = task;
+
+                    let saveButton = document.createElement("saveButton");
+                    saveButton.textContent = "Save";
+                    saveButton.addEventListener("click", function () {
+                        tasks[i] = editInput.value.trim();
+                        updateTaskList(tasks);
+                        localStorage.setItem("taskList", JSON.stringify(tasks));
+                    });
+
+                    taskElement.removeChild(taskText);
+                    taskElement.appendChild(editInput);
+                    taskElement.appendChild(saveButton);
+                });
+
+                let deleteButton = document.createElement("deleteButton");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", function () {
+                    // Code to delete the task
+                    tasks.splice(i, 1);
+                    updateTaskList(tasks);
+                    localStorage.setItem("taskList", JSON.stringify(tasks));
+                });
+
+                taskElement.appendChild(editButton);
+                taskElement.appendChild(deleteButton);
+
+                taskList.appendChild(taskElement);
+            }
+        }
+
+        // Adding event listener to the "Add Task" button
+        btn.addEventListener("click", function () {
+            let task = taskInput.value.trim();
+            if (task) {
+                let storedTasks = JSON.parse(localStorage.getItem("taskList")) || [];
+                storedTasks.push(task);
+                localStorage.setItem("taskList", JSON.stringify(storedTasks));
+
+                taskInput.value = ""; // Clear the input field after saving
+                updateTaskList(storedTasks);
+            }
+        });
+
+        // Display stored tasks on page load
+        window.addEventListener("load", function () {
+            let storedTasks = JSON.parse(localStorage.getItem("taskList")) || [];
+            updateTaskList(storedTasks);});
+
+    </script>
+</body>
+</html>
